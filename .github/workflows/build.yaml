@@ -37,8 +37,8 @@ jobs:
 
       - name: Build and publish backend
         run: |-
-          docker build --tag "mluukkai/pock:${{env.TAG}}" .
-          docker push "mluukkai/pock:${{env.TAG}}"
+          docker build --tag "mluukkai/pock:$TAG .
+          docker push "mluukkai/pock:$TAG"
 
 #      - name: Set up Kustomize
 #        uses: imranismail/setup-kustomize@v2
