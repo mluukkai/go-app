@@ -1,0 +1,52 @@
+name: Deploy application
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  TAG: ${{ github.sha }}
+
+jobs:
+  build-publish-deploy:
+    name: Build, Publish and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and publish backend
+        run: |-
+          docker build --tag "mluukkai/pock:$GITHUB_SHA" .
+          docker push "mluukkai/pock:$GITHUB_SHA"
+  
+      - name: debug
+        run: |- 
+          echo $GITHUB_SHA
+          echo ${{ github.sha }}
+          echo ${{ env.TAG }}
+
+      - name: Build and publish backend
+        run: |-
+          docker build --tag "mluukkai/pock:${{env.TAG}}" .
+
+#      - name: Set up Kustomize
+#        uses: imranismail/setup-kustomize@v2
+
+#      - name: tag image
+#        run: kustomize edit set image PROJECT/IMAGE=mluukkai/pock:$GITHUB_SHA
+
+#      - uses: EndBug/add-and-commit@v9
+#        with:
+#          add: 'kustomization.yaml'
+#          message: New version release ${{ github.sha }}
+
+#argocd app create pockki --repo https://github.com/mluukkai/ghapoc --path . --dest-server https://kubernetes.default.svc --dest-namespace default          
