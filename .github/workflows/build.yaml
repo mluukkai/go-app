@@ -33,10 +33,12 @@ jobs:
           echo $GITHUB_SHA
           echo ${{ github.sha }}
           echo ${{ env.TAG }}
+          echo $TAG
 
       - name: Build and publish backend
         run: |-
           docker build --tag "mluukkai/pock:${{env.TAG}}" .
+          docker push "mluukkai/pock:${{env.TAG}}"
 
 #      - name: Set up Kustomize
 #        uses: imranismail/setup-kustomize@v2
