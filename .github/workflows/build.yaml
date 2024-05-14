@@ -10,8 +10,8 @@ env:
   TAG: '1'
 
 jobs:
-  build-publish-deploy:
-    name: Build, Publish and Deploy
+  build-publish:
+    name: Build and publish
     runs-on: ubuntu-latest
 
     steps:
@@ -28,6 +28,18 @@ jobs:
         run: |-
           docker build --tag "mluukkai/pock:$TAG" .
           docker push "mluukkai/pock:$TAG"
+
+  mod-confs:
+    needs: [build-publish]
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout tools repo
+      uses: actions/checkout@v4
+      with:
+        repository: mluukkai/go-conf
+        path: config  
 
 #      - name: Set up Kustomize
 #        uses: imranismail/setup-kustomize@v2
