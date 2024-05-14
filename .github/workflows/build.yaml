@@ -43,9 +43,14 @@ jobs:
     - name: Set up Kustomize
       uses: imranismail/setup-kustomize@v2
 
+    - run: ls -la overlays/prod
+
     - name: tag image
-      run: kustomize edit set image IMAGE="mluukkai/pock:$TAG"
+      #run: kustomize edit set image IMAGE="mluukkai/pock:$TAG"
+      run: kustomize edit set image IMAGE=mluukkai/pock:1
       working-directory: overlays/prod
+
+    - run: git status
 
     - uses: EndBug/add-and-commit@v9
       with:
