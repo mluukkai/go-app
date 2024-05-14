@@ -37,7 +37,7 @@ jobs:
 
       - name: Build and publish backend
         run: |-
-          docker build --tag "mluukkai/pock:$TAG .
+          docker build --tag "mluukkai/pock:$TAG" .
           docker push "mluukkai/pock:$TAG"
 
 #      - name: Set up Kustomize
