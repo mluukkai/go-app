@@ -45,8 +45,7 @@ jobs:
     - run: ls -la overlays/prod
 
     - name: tag image
-      #run: kustomize edit set image IMAGE="mluukkai/pock:$TAG"
-      run: kustomize edit set image IMAGE=mluukkai/pock:1
+      run: kustomize edit set image IMAGE="mluukkai/pock:$TAG"
       working-directory: overlays/prod
 
     - run: git status
