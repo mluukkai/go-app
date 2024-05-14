@@ -6,8 +6,7 @@ on:
       - main
 
 env:
-  TAG2: ${{ github.sha }}
-  TAG: '1'
+  TAG: ${{ github.sha }}
 
 jobs:
   build-publish:
