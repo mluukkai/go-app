@@ -40,17 +40,12 @@ jobs:
       with:
         repository: mluukkai/go-conf
 
-    - run: ls
-
     - name: Set up Kustomize
       uses: imranismail/setup-kustomize@v2
 
-    - run: cd overlays/prod
-
-    - run: ls
-
     - name: tag image
       run: kustomize edit set image IMAGE="mluukkai/pock:$TAG"
+      working-directory: overlays/prod
 
     - uses: EndBug/add-and-commit@v9
       with:
