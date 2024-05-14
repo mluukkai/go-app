@@ -6,7 +6,8 @@ on:
       - main
 
 env:
-  TAG: ${{ github.sha }}
+  TAG2: ${{ github.sha }}
+  TAG: '1'
 
 jobs:
   build-publish-deploy:
@@ -22,18 +23,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Build and publish backend
-        run: |-
-          docker build --tag "mluukkai/pock:$GITHUB_SHA" .
-          docker push "mluukkai/pock:$GITHUB_SHA"
-  
-      - name: debug
-        run: |- 
-          echo $GITHUB_SHA
-          echo ${{ github.sha }}
-          echo ${{ env.TAG }}
-          echo $TAG
 
       - name: Build and publish backend
         run: |-
